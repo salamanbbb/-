@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>练习1</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<script>
+
+//将所有存储在localStorage中的对象显示出来，并展现到界面上
+function loadAll(){
+
+if(localStorage.length>0){
+    var result = "<table border='1'>";
+    result += "<tr><td>names</td><td><ages></td></tr>";
+    for(var i = 0; i <localStorage.length;i++){
+        var name = localStorage.key(i);
+        var age = localStorage.getItem(name);
+        result += "<tr><td>"+name+"</td><td>"+"age"+"</td></tr>";
+    }
+    result += "</table>"
+    $("#list").text(result);
+} else {
+    $("#list").text(数据为空);
+}
+}
+
+loadAll();
+
+$(function(){
+ 
+    //保存
+    $("#save").click(function (){
+        var name = $("#names").val();
+        var age = $("#ages").val();
+        // alert(name+age);
+        localStorage.setItem(name,age);
+        alert("新增成功");
+    });
+
+    //查找
+    $("#findName").click(function(){
+        var find = $("#find").val();
+        var result = localStorage.getItem(find);
+        if (result != null && result != ""){
+            $("#find_result").text(find+"的年龄是："+result);
+        }  
+        else {
+            $("#find_result").text("没有这个名字哦~");
+        }
+    })
+})
+</script>
+<body >
+    <div style="border: 2px tomato dashed; width: 300px; text-align: center">
+        <label for="names">姓名：</label>
+        <input type="text" id="names" name="names">
+        <br><br>
+        <label for="ages">年龄：</label>
+        <input type="text" id="ages" name="ages">
+        <br>
+        <input id="save" type="button" value="新增记录" > 
+        <hr>
+        <label for="find">输入名字</label>
+        <input type="text" id="find" val=""> 
+        <input id="findName" type="button" value="查找姓名" > 
+        <p id="find_result"></p>
+    </div>
+    <br>
+    <div id="list"></div>
+    
+</body>
+</html>
